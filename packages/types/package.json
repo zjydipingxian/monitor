@@ -1,0 +1,37 @@
+{
+  "name": "monitor-types",
+  "version": "0.0.1",
+  "description": "前端稳定性监控 通用类型声明",
+  "main": "dist/types.global.js",
+  "module": "dist/types.umd.js",
+  "types": "dist/types/types/src/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist node_modules",
+    "clearDist": "rimraf dist"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "encode",
+    "monitor",
+    "types"
+  ],
+  "buildOptions": {
+    "name": "monitorTypes",
+    "formats": [
+      "esm-bundler",
+      "cjs",
+      "umd",
+      "global"
+    ]
+  },
+  "author": "ZhongJiaYao",
+  "license": "ISC",
+  "dependencies": {
+    "monitor-core": "workspace:^",
+    "monitor-shared": "workspace:^",
+    "monitor-utils": "workspace:^"
+  }
+}

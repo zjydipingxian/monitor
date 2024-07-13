@@ -1,0 +1,38 @@
+{
+  "name": "monitor-browser",
+  "version": "0.0.1",
+  "description": "前端稳定性监控 页面监控",
+  "main": "dist/browser.global.js",
+  "module": "dist/browser.umd.js",
+  "types": "dist/types/browser/src/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist node_modules",
+    "clearDist": "rimraf dist"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "encode",
+    "monitor",
+    "browser"
+  ],
+  "buildOptions": {
+    "name": "monitorBrowser",
+    "formats": [
+      "esm-browser",
+      "cjs",
+      "umd",
+      "global"
+    ]
+  },
+  "author": "ZhongJiaYao",
+  "license": "ISC",
+  "dependencies": {
+    "monitor-core": "workspace:^",
+    "monitor-shared": "workspace:^",
+    "monitor-types": "workspace:^",
+    "monitor-utils": "workspace:^"
+  }
+}

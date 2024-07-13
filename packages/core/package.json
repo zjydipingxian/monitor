@@ -1,0 +1,35 @@
+{
+  "name": "monitor-core",
+  "version": "0.0.1",
+  "description": "前端稳定性监控 核心功能",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf dist node_modules",
+    "clearDist": "rimraf dist"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "encode",
+    "monitor",
+    "core"
+  ],
+  "buildOptions": {
+    "name": "monitorCore",
+    "formats": [
+      "esm-bundler",
+      "cjs",
+      "umd",
+      "global"
+    ]
+  },
+  "author": "ZhongJiaYao",
+  "license": "ISC",
+  "dependencies": {
+    "monitor-shared": "workspace:^",
+    "monitor-types": "workspace:^",
+    "monitor-utils": "workspace:^"
+  }
+}

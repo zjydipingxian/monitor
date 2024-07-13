@@ -1,0 +1,38 @@
+{
+  "name": "monitor-vue",
+  "version": "0.0.1",
+  "description": "前端稳定性监控 Vue 监控",
+  "main": "dist/vue.global.js",
+  "module": "dist/vue.umd.js",
+  "types": "dist/vue/types/src/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist node_modules",
+    "clearDist": "rimraf dist"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "encode",
+    "monitor",
+    "Vue 监控"
+  ],
+  "buildOptions": {
+    "name": "monitorVue",
+    "formats": [
+      "esm-bundler",
+      "cjs",
+      "umd",
+      "global"
+    ]
+  },
+  "author": "ZhongJiaYao",
+  "license": "ISC",
+  "dependencies": {
+    "monitor-core": "workspace:^",
+    "monitor-shared": "workspace:^",
+    "monitor-types": "workspace:^",
+    "monitor-utils": "workspace:^"
+  }
+}

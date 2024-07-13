@@ -1,0 +1,37 @@
+{
+  "name": "monitor-utils",
+  "version": "0.0.1",
+  "description": "前端稳定性监控 通用函数",
+  "main": "dist/utils.global.js",
+  "module": "dist/utils.umd.js",
+  "types": "dist/utils/types/src/index.d.ts",
+  "scripts": {
+    "clean": "rimraf dist node_modules",
+    "clearDist": "rimraf dist"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "encode",
+    "monitor",
+    "utils"
+  ],
+  "buildOptions": {
+    "name": "monitorUtils",
+    "formats": [
+      "esm-bundler",
+      "cjs",
+      "umd",
+      "global"
+    ]
+  },
+  "author": "ZhongJiaYao",
+  "license": "ISC",
+  "dependencies": {
+    "monitor-core": "workspace:^",
+    "monitor-shared": "workspace:^",
+    "monitor-types": "workspace:^"
+  }
+}
