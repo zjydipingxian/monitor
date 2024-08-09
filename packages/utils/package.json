@@ -7,7 +7,8 @@
   "types": "dist/utils/types/src/index.d.ts",
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "clearDist": "rimraf dist"
+    "clearDist": "rimraf dist",
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "files": [
     "dist",
@@ -21,9 +22,7 @@
   "buildOptions": {
     "name": "monitorUtils",
     "formats": [
-      "esm-bundler",
       "cjs",
-      "umd",
       "global"
     ]
   },

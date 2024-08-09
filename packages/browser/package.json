@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "description": "前端稳定性监控 页面监控",
   "main": "dist/browser.global.js",
-  "module": "dist/browser.umd.js",
-  "types": "dist/types/browser/src/index.d.ts",
+  "module": "dist/browser.esm.js",
+  "unpkg": "dist/browser.global.js",
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "clearDist": "rimraf dist"
+    "clearDist": "rimraf dist",
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "files": [
     "dist",
@@ -23,7 +24,6 @@
     "formats": [
       "esm-browser",
       "cjs",
-      "umd",
       "global"
     ]
   },

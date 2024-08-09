@@ -8,9 +8,11 @@
     "inits": "pnpm install",
     "clean": "pnpm -r --filter=./packages/* run clean",
     "clearDist": "pnpm -r --filter=./packages/* run clearDist",
-    "build": "pnpm -r --filter=./packages/* run clearDist && node scripts/build.mjs",
+    "build": "pnpm run clearDist && pnpm run inits  && rollup -c --bundleConfigAsCjs",
     "pub": "pnpm run build && pnpm -r --filter=./packages/* publish",
-    "pub:beta": "pnpm run build && pnpm -r --filter=./packages/* publish --tag beta"
+    "pub:beta": "pnpm run build && pnpm -r --filter=./packages/* publish --tag beta",
+    "es-build:dev": "node es-build-config.mjs dev",
+    "es-build:prod": "pnpm run clearDist && node es-build-config.mjs prod"
   },
   "keywords": [
     "encode",
@@ -24,9 +26,12 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.14.10",
+    "cli-progress": "^3.12.0",
+    "esbuild": "^0.23.0",
     "execa": "^5.1.1",
+    "minimist": "^1.2.8",
+    "ora": "^8.0.1",
     "rollup": "^4.18.1",
-    "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^6.1.1",
     "tslib": "^2.6.3",
     "typescript": "^5.5.3"
