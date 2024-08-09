@@ -2,13 +2,12 @@
   "name": "monitor-core",
   "version": "0.0.1",
   "description": "前端稳定性监控 核心功能",
-  "main": "dist/core.global.js",
-  "module": "dist/core.esm.js",
-  "unpkg": "dist/core.global.js",
+  "main": "dist/core-global.js",
+  "module": "dist/core-esm.js",
+  "unpkg": "dist/core-global.js",
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "clearDist": "rimraf dist",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "clearDist": "rimraf dist"
   },
   "files": [
     "dist",
@@ -32,5 +31,8 @@
     "monitor-shared": "workspace:^",
     "monitor-types": "workspace:^",
     "monitor-utils": "workspace:^"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

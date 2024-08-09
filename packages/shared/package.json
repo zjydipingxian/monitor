@@ -2,14 +2,12 @@
   "name": "monitor-shared",
   "version": "0.0.1",
   "description": "前端稳定性监控 共享参数",
-  "main": "dist/shared.global.js",
-  "module": "dist/shared.esm.js",
-  "unpkg": "dist/shared.global.js",
+  "main": "dist/shared-global.js",
+  "module": "dist/shared-esm.js",
+  "unpkg": "dist/shared-global.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clearDist": "rimraf dist",
-    "build": "rollup -c --bundleConfigAsCjs"
-    
+    "clean": "rimraf dist node_modules",
+    "clearDist": "rimraf dist"
   },
   "devDependencies": {
     "rollup": "^4.18.1"
@@ -31,5 +29,8 @@
     ]
   },
   "author": "ZhongJiaYao",
-  "license": "ISC"
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }

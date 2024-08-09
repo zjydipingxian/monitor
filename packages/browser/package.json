@@ -2,13 +2,12 @@
   "name": "monitor-browser",
   "version": "0.0.1",
   "description": "前端稳定性监控 页面监控",
-  "main": "dist/browser.global.js",
-  "module": "dist/browser.esm.js",
-  "unpkg": "dist/browser.global.js",
+  "main": "dist/browser-global.js",
+  "module": "dist/browser-esm.js",
+  "unpkg": "dist/browser-global.js",
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "clearDist": "rimraf dist",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "clearDist": "rimraf dist"
   },
   "files": [
     "dist",
@@ -34,5 +33,8 @@
     "monitor-shared": "workspace:^",
     "monitor-types": "workspace:^",
     "monitor-utils": "workspace:^"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

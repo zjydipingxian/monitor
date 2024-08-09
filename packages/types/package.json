@@ -2,13 +2,12 @@
   "name": "monitor-types",
   "version": "0.0.1",
   "description": "前端稳定性监控 通用类型声明",
-  "main": "dist/types.global.js",
-  "module": "dist/types.umd.js",
+  "main": "dist/types-global.js",
+  "module": "dist/types-esm.js",
   "types": "dist/types/types/src/index.d.ts",
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "clearDist": "rimraf dist",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "clearDist": "rimraf dist"
   },
   "files": [
     "dist",
@@ -32,5 +31,8 @@
     "monitor-core": "workspace:^",
     "monitor-shared": "workspace:^",
     "monitor-utils": "workspace:^"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

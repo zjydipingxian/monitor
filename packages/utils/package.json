@@ -2,13 +2,12 @@
   "name": "monitor-utils",
   "version": "0.0.1",
   "description": "前端稳定性监控 通用函数",
-  "main": "dist/utils.global.js",
-  "module": "dist/utils.umd.js",
+  "main": "dist/utils-global.js",
+  "module": "dist/utils-esm.js",
   "types": "dist/utils/types/src/index.d.ts",
   "scripts": {
     "clean": "rimraf dist node_modules",
-    "clearDist": "rimraf dist",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "clearDist": "rimraf dist"
   },
   "files": [
     "dist",
@@ -32,5 +31,8 @@
     "monitor-core": "workspace:^",
     "monitor-shared": "workspace:^",
     "monitor-types": "workspace:^"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
