@@ -1,5 +1,6 @@
 import { IAnyObject } from 'monitor-types'
 import { nativeToString, variableTypeDetection } from './is'
+import { globalVar } from 'monitor-shared'
 import { logger } from './logger'
 
 type TotalEventName =
@@ -171,4 +172,14 @@ export function unknownToString(target: unknown): string {
     return 'undefined'
   }
   return JSON.stringify(target)
+}
+
+export function getBigVersion(version: string) {
+  return Number(version.split('.')[0])
+}
+
+export function silentConsoleScope(callback: Function) {
+  globalVar.isLogAddBreadcrumb = false
+  callback()
+  globalVar.isLogAddBreadcrumb = true
 }
