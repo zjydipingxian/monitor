@@ -1,3 +1,2 @@
-export const getName = () => {
-  console.log('我是-web')
-}
+import { init, SDK_VERSION, SDK_NAME, log } from 'monitor-browser'
+export { init, SDK_VERSION, SDK_NAME, log }

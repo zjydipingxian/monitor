@@ -1,10 +1,11 @@
+import os from 'os'
 import esbuild from 'esbuild'
 import minimist from 'minimist'
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { createRequire } from 'module'
 import fs from 'fs'
-import { execSync } from 'child_process'
+import chokidar from 'chokidar'
 
 import ora from 'ora'
 import { SingleBar, Presets } from 'cli-progress'
@@ -25,20 +26,26 @@ const packagesDir = fs
 const args = minimist(process.argv.slice(2))
 const env = args._.length ? args._[0] : 'dev'
 const isProduction = env === 'prod'
+// 动态设置并发构建数量
+const maxConcurrentBuilds = Math.min(os.cpus().length, packagesDir.length)
 
-const buildPackage = async (target, progressBar) => {
+// 开始记录构建时间
+console.time('Total Build Time')
+
+const buildPackage = async (target) => {
   const spinner = ora(`Building ${target}...`).start()
 
-  // 获取每个子包里面的 package.json 内容
-  const pkg = require(`./packages/${target}/package.json`)
+  // 构建函数
+  const build = async () => {
+    // 获取每个子包里面的 package.json 内容
+    const pkg = require(`./packages/${target}/package.json`)
 
-  const formats = ['iife', 'cjs', 'esm']
-  const outdir = resolve(__dirname, 'packages', target, 'dist')
+    const formats = ['iife', 'cjs', 'esm']
+    const outdir = resolve(__dirname, 'packages', target, 'dist')
 
-  await Promise.all(
-    formats.map((format) =>
-      esbuild
-        .build({
+    await Promise.all(
+      formats.map((format) =>
+        esbuild.build({
           entryPoints: [
             resolve(__dirname, 'packages', target, 'src', 'index.ts'),
           ],
@@ -51,41 +58,51 @@ const buildPackage = async (target, progressBar) => {
             outdir,
             `${target}-${format === 'iife' ? 'global' : format}.js`
           ),
+          // 根目录的 tsconfig.json
+          tsconfig: resolve(__dirname, 'tsconfig.json'),
         })
-        .then(() => {
-          spinner.succeed(`Built ${target} in ${format} format`)
-          progressBar.increment()
-        })
-        .catch((error) => {
-          console.error(`Error building ${target} in ${format} format:`, error)
-          process.exit(1)
-        })
+      )
     )
-  )
 
-  if (isProduction) {
-    // 生成 .d.ts 文件
-    // try {
-    //   execSync(
-    //     `tsc --project packages/${target}/tsconfig.json --emitDeclarationOnly --outDir packages/${target}/dist`
-    //   )
-    //   spinner.succeed(`Generated .d.ts for ${target}`)
-    // } catch (error) {
-    //   console.error(`Error executing tsc: ${error.message}`)
-    //   process.exit(1)
-    // }
+    spinner.succeed(`Built ${target}`)
   }
+
+  if (!isProduction) {
+    // 初始化监听器
+    const watcher = chokidar.watch(['./packages/' + target + '/src/**/*.ts'], {
+      ignored: /(^|[\/\\])\../,
+    })
+
+    // 监听文件添加、修改和删除事件
+    watcher.on('add', build)
+    watcher.on('change', build)
+    watcher.on('unlink', build)
+  }
+
+  // 首次构建
+  await build()
 }
 
 const buildAllPackages = async () => {
   const progressBar = new SingleBar({}, Presets.shades_classic)
   progressBar.start(packagesDir.length, 0)
 
-  await Promise.all(
-    packagesDir.map((target) => buildPackage(target, progressBar))
-  )
+  // 使用 Promise.all 并限制并发数量
+  const concurrentBuilds = []
+  for (let i = 0; i < packagesDir.length; i++) {
+    const target = packagesDir[i]
+    concurrentBuilds.push(buildPackage(target))
+  }
+
+  await Promise.all(concurrentBuilds)
 
   progressBar.stop()
+  // 结束记录构建时间
+  console.timeEnd('Total Build Time')
+
+  // 测试环境
+  if (!isProduction) {
+  }
 }
 
 buildAllPackages().catch((error) => {
